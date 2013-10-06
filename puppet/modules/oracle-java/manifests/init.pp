@@ -1,16 +1,8 @@
 class oracle-java {
-  package { ["python-software-properties"]:
-    ensure => present
-  }
- 
   exec { "add-apt-repository-oracle":
     command => "/usr/bin/add-apt-repository -y ppa:webupd8team/java",
-    notify => Exec["apt_update"],
+    notify => Exec["apt-update-post-repo-add"],
     require => Package["python-software-properties"]
-  }
-  
-  exec { "apt_update":
-    command => "/usr/bin/apt-get update"
   }
  
   exec {
