@@ -1,4 +1,8 @@
 class oracle-java {
+
+  realize Exec["apt-update-post-repo-add"]
+  realize Package["python-software-properties"]
+
   exec { "add-apt-repository-oracle":
     command => "/usr/bin/add-apt-repository -y ppa:webupd8team/java",
     notify => Exec["apt-update-post-repo-add"],
@@ -15,6 +19,6 @@ class oracle-java {
  
   package { 'oracle-java6-installer':
     ensure => "latest",
-    require => [Exec['add-apt-repository-oracle'], Exec['set-licence-selected'], Exec['set-licence-seen']],
+    require => [Exec['add-apt-repository-oracle'], Exec['set-licence-selected'], Exec['set-licence-seen'],Exec["apt-update-post-repo-add"]]
   }
 }
