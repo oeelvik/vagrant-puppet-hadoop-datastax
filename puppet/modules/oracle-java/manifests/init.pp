@@ -5,10 +5,12 @@ class oracle-java {
 
   exec {
     'set-licence-selected':
-      command => '/bin/echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections';
+      command => '/bin/echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections',
+      creates => '/usr/lib/jvm/java-6-oracle/';
  
     'set-licence-seen':
-      command => '/bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections';
+      command => '/bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections',
+      creates => '/usr/lib/jvm/java-6-oracle/';
   }
  
   package { 'oracle-java6-installer':

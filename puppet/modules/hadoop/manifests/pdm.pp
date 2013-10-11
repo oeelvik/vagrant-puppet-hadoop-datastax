@@ -30,12 +30,14 @@ class hadoop::pdm( $hostname = 'localhost' ) {
   exec { 'hadoop-namenode-format':
     command => '/usr/lib/hadoop/bin/hadoop namenode -format',
     user => "root",
+    creates => '/var/dfs/data',
     require => [File['core-site.xml'], File['hdfs-site.xml'], File['mapred-site.xml'], Common::Sshlocal['root']],
   }
 
   exec { 'hadoop-start-all':
     command => '/usr/lib/hadoop/bin/start-all.sh',
     user => "root",
+    unless => "/usr/bin/jps | /bin/grep NameNode",
     require => Exec['hadoop-namenode-format'],
   }
 }
