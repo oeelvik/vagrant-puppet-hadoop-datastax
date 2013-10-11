@@ -1,17 +1,11 @@
 class hadoop {
 
-  realize Exec["apt-update-post-repo-add"]
-  realize Package["python-software-properties"]
-
-  exec { "add-apt-repository-hadoop":
-    command => "/usr/bin/add-apt-repository -y ppa:hadoop-ubuntu/stable",
-    notify => Exec["apt-update-post-repo-add"],
-    require => Package["python-software-properties"]
-  }
+  realize Class['apt']
+  apt::ppa { 'ppa:hadoop-ubuntu/stable': }
  
   package { 'hadoop':
     ensure => "latest",
-    require => [Exec['add-apt-repository-hadoop'],Exec["apt-update-post-repo-add"]],
+    require => Apt::Ppa['ppa:hadoop-ubuntu/stable'],
   }
   
   exec {

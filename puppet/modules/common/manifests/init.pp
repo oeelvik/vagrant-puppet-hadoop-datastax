@@ -4,15 +4,9 @@ class common {
   }
   Exec["apt-update"] -> Package <| |>
 
+  @class { 'apt': }
+
   package { ["vim"]:
-    ensure => present
-  }
-  
-  @exec { "apt-update-post-repo-add":
-    command => "/usr/bin/apt-get update"
-  }
-  
-  @package { ["python-software-properties"]:
     ensure => present
   }
 }
