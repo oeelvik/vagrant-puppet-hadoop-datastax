@@ -3,4 +3,7 @@ node default {
   class { 'oracle-java': }
   class { 'hadoop::pdm': }
   class { 'cassandra': }
+  class { 'cassandra::hadoop': 
+    notify => Exec['hadoop-start-all']
+  }
 }
