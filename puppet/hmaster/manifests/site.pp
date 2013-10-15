@@ -7,4 +7,6 @@ node default {
   class { 'cassandra::hadoop': 
     notify => Exec['hadoop-start-all']
   }
+  class { 'elasticsearch': }
+  elasticsearch::plugin { 'mobz/elasticsearch-head': }
 }
